@@ -1,0 +1,18 @@
+<resources>
+    <!-- Background Color -->
+    <color name="backgroundColor">#F5F5F5</color>
+
+    <!-- Text Colors -->
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="hintColor">#BDBDBD</color>
+    <color name="linkColor">#1E88E5</color>
+
+    <!-- Primary Colors -->
+    <color name="primaryColor">#22B04C</color>
+    <color name="primaryVariant">#22B04C</color>
+    <color name="onPrimary">#FFFFFF</color>
+
+    <!-- Accent Colors -->
+    <color name="accentColor">#03DAC6</color>
+</resources>

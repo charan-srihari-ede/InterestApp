@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="2dp">
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textSize="4dp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:gravity="center"
+                android:paddingBottom="6dp" />
+
+            <!-- Rounded Image -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/image"
+                android:background="@drawable/round_image"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop" />
+
+            <!-- Amount Input -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Amount:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginTop="6dp" />
+
+            <EditText
+                android:id="@+id/amountInput"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="e.g., 1,00,000"
+                android:inputType="numberDecimal"
+                android:textColor="@color/textPrimary"
+                android:backgroundTint="@color/textPrimary" />
+
+            <!-- Interest Rate Input -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Interest Rate:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary" />
+
+            <EditText
+                android:id="@+id/rateInput"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="e.g., 7.5"
+                android:inputType="numberDecimal"
+                android:textColor="@color/textPrimary"
+                android:backgroundTint="@color/textPrimary" />
+
+            <!-- Date Taken -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date Taken:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary" />
+
+            <EditText
+                android:id="@+id/dateTakenInput"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="dd/MM/yyyy"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="date"
+                android:textColor="@color/textPrimary"
+                android:backgroundTint="@color/textPrimary" />
+
+            <!-- Date Returned -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date Returned:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary" />
+
+            <EditText
+                android:id="@+id/dateReturnedInput"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="dd/MM/yyyy"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="date"
+                android:textColor="@color/textPrimary"
+                android:backgroundTint="@color/textPrimary" />
+
+            <!-- Calculate Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <Button
+                    android:id="@+id/calculateButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:background="@drawable/button_background"
+                    android:text="Calculate Interest"
+                    android:textColor="@color/backgroundColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <!-- Copyright Section -->
+        </LinearLayout>
+    </ScrollView>
+    <TextView
+        android:id="@+id/copyrightText"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/backgroundColor"
+        android:gravity="center"
+        android:text="© 2024 Charan. All rights reserved."
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textColor="@color/primaryVariant"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

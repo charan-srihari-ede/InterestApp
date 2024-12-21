@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.MyApp" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Use the same fixed Background -->
+        <item name="android:windowBackground">#F5F5F5</item> <!-- Light gray -->
+
+        <!-- Fixed Primary Colors -->
+        <item name="colorPrimary">#22B04C</item>
+        <item name="colorPrimaryVariant">#22B04C</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- Fixed Text Colors -->
+        <item name="android:textColorPrimary">#212121</item>
+        <item name="android:textColorSecondary">#757575</item>
+        <item name="android:textColorHint">#BDBDBD</item>
+        <item name="android:textColorLink">#1E88E5</item>
+    </style>
+</resources>
