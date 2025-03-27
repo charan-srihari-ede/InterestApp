@@ -1,6 +1,5 @@
 package com.example.interestapp;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,7 +20,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private EditText amountInput, rateInput, dateTakenInput, dateReturnedInput;
-    private String dateTaken, dateReturned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +32,12 @@ public class MainActivity extends AppCompatActivity {
         dateReturnedInput = findViewById(R.id.dateReturnedInput);
         Button calculateButton = findViewById(R.id.calculateButton);
 
-        // Add formatting to the amount field
+        // Add currency formatting to amount field
         addCurrencyFormatting(amountInput);
 
-        // Set up date pickers for EditTexts
-        dateTakenInput.setOnClickListener(v -> showDatePicker((date) -> {
-            dateTaken = date;
-            dateTakenInput.setText(date);
-        }));
-
-        dateReturnedInput.setOnClickListener(v -> showDatePicker((date) -> {
-            dateReturned = date;
-            dateReturnedInput.setText(date);
-        }));
+        // Add automatic date formatting
+        setupDateInput(dateTakenInput);
+        setupDateInput(dateReturnedInput);
 
         calculateButton.setOnClickListener(v -> calculateInterest());
     }
@@ -75,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
                         current = formatted;
                         editText.setText(formatted);
                         editText.setSelection(formatted.length());
-                    } catch (NumberFormatException e) {
-                        // Handle invalid input gracefully
-                    }
+                    } catch (NumberFormatException ignored) {}
 
                     editText.addTextChangedListener(this);
                 }
@@ -85,26 +74,53 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showDatePicker(DatePickerCallback callback) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+    private void setupDateInput(EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            private String current = "";
+            private final String format = "DD/MM/YYYY";
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                (view, year1, month1, dayOfMonth) -> {
-                    String selectedDate = String.format(Locale.US, "%02d/%02d/%04d", dayOfMonth, month1 + 1, year1);
-                    callback.onDateSelected(selectedDate);
-                }, year, month, day);
-        datePickerDialog.show();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString().replace("/", "");
+
+                if (!input.equals(current)) {
+                    editText.removeTextChangedListener(this);
+
+                    String formattedDate = "";
+                    if (input.length() <= 2) {
+                        formattedDate = input;
+                    } else if (input.length() <= 4) {
+                        formattedDate = input.substring(0, 2) + "/" + input.substring(2);
+                    } else if (input.length() <= 8) {
+                        formattedDate = input.substring(0, 2) + "/" + input.substring(2, 4) + "/" + input.substring(4);
+                    } else {
+                        formattedDate = input.substring(0, 2) + "/" + input.substring(2, 4) + "/" + input.substring(4, 8);
+                    }
+
+                    current = formattedDate;
+                    editText.setText(formattedDate);
+                    editText.setSelection(formattedDate.length());
+
+                    editText.addTextChangedListener(this);
+                }
+            }
+        });
     }
 
     private void calculateInterest() {
-        String amountStr = amountInput.getText().toString().replace(",", "");
-        String rateStr = rateInput.getText().toString();
+        String amountStr = amountInput.getText().toString().replace(",", "").trim();
+        String rateStr = rateInput.getText().toString().trim();
+        String dateTaken = dateTakenInput.getText().toString().trim();
+        String dateReturned = dateReturnedInput.getText().toString().trim();
 
-        if (amountStr.isEmpty() || rateStr.isEmpty() || dateTaken == null || dateReturned == null) {
-            Toast.makeText(this, "Please fill all fields and select dates", Toast.LENGTH_SHORT).show();
+        if (amountStr.isEmpty() || rateStr.isEmpty() || dateTaken.isEmpty() || dateReturned.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -113,8 +129,15 @@ public class MainActivity extends AppCompatActivity {
             double rate = Double.parseDouble(rateStr);
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+            sdf.setLenient(false); // Ensures strict date format validation
+
             Date startDate = sdf.parse(dateTaken);
             Date endDate = sdf.parse(dateReturned);
+
+            if (endDate.before(startDate)) {
+                Toast.makeText(this, "Date Returned cannot be before Date Taken!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
             Calendar startCalendar = Calendar.getInstance();
             Calendar endCalendar = Calendar.getInstance();
@@ -127,7 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
             int daysDifference = endCalendar.get(Calendar.DAY_OF_MONTH) - startCalendar.get(Calendar.DAY_OF_MONTH);
             if (daysDifference < 0) {
-                // Borrow a month
                 totalMonths -= 1;
                 Calendar tempCalendar = (Calendar) endCalendar.clone();
                 tempCalendar.add(Calendar.MONTH, -1);
@@ -137,16 +159,12 @@ public class MainActivity extends AppCompatActivity {
             double interest = (amount * rate * (totalMonths + (double) daysDifference / 30)) / 100;
             double total = amount + interest;
 
-            // Format results in Indian currency
-            String interestFormatted = NumberFormat.getCurrencyInstance(new Locale("en", "IN"))
-                    .format(interest);
-            String totalFormatted = NumberFormat.getCurrencyInstance(new Locale("en", "IN"))
-                    .format(total);
+            String interestFormatted = NumberFormat.getCurrencyInstance(new Locale("en", "IN")).format(interest);
+            String totalFormatted = NumberFormat.getCurrencyInstance(new Locale("en", "IN")).format(total);
 
-            // Show the result in an AlertDialog
             showResultDialog(interestFormatted, totalFormatted, totalMonths, daysDifference);
         } catch (NumberFormatException | ParseException e) {
-            Toast.makeText(this, "Invalid input or date format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid input or date format (dd/MM/yyyy)", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -154,12 +172,9 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Calculation Result")
                 .setMessage(String.format(Locale.US, "%d years, %d Months, %d days\n\nInterest: %s\n\nTotal Amount: %s",
-                        months/12,months%12, days, interest, total))
+                        months / 12, months % 12, days, interest, total))
                 .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
                 .show();
-    }
-
-    private interface DatePickerCallback {
-        void onDateSelected(String date);
     }
 }

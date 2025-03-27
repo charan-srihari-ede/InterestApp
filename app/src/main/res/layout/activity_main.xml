@@ -8,6 +8,38 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints"
+            android:background="#EA3700B3">
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingBottom="6dp"
+                android:text="Vaddi App"
+                android:textColor="@color/onPrimary"
+                android:textSize="24dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/baseline_arrow_circle_down_24" />
+
+
+        </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,19 +50,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="2dp">
+            android:padding="8dp">
 
             <!-- Title -->
-            <TextView
-                android:id="@+id/titleText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=" "
-                android:textSize="4dp"
-                android:textStyle="bold"
-                android:textColor="@color/textPrimary"
-                android:gravity="center"
-                android:paddingBottom="6dp" />
+
 
             <!-- Rounded Image -->
             <ImageView
@@ -45,28 +68,39 @@
 
             <!-- Amount Input -->
             <TextView
+                android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Enter Amount:"
+                android:layout_height="30dp"
+                android:text="Enter Amount"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/textPrimary"
                 android:layout_marginTop="6dp" />
 
+<!--            <EditText-->
+<!--                android:id="@+id/amountInput"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:hint="e.g., 1,00,000"-->
+<!--                android:inputType="numberDecimal"-->
+<!--                android:textColor="@color/textPrimary"-->
+<!--                android:backgroundTint="@color/textPrimary" />-->
             <EditText
                 android:id="@+id/amountInput"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="36dp"
                 android:hint="e.g., 1,00,000"
                 android:inputType="numberDecimal"
                 android:textColor="@color/textPrimary"
-                android:backgroundTint="@color/textPrimary" />
+                android:background="@drawable/edittext_background"
+                android:paddingStart="8dp"/>
 
             <!-- Interest Rate Input -->
             <TextView
+                android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Enter Interest Rate:"
+                android:layout_height="30dp"
+                android:text="Enter Interest Rate"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/textPrimary" />
@@ -74,17 +108,19 @@
             <EditText
                 android:id="@+id/rateInput"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="36dp"
                 android:hint="e.g., 7.5"
                 android:inputType="numberDecimal"
                 android:textColor="@color/textPrimary"
-                android:backgroundTint="@color/textPrimary" />
+                android:background="@drawable/edittext_background"
+                android:paddingStart="8dp"/>
 
             <!-- Date Taken -->
             <TextView
+                android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Date Taken:"
+                android:layout_height="30dp"
+                android:text="Date Taken"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/textPrimary" />
@@ -92,19 +128,20 @@
             <EditText
                 android:id="@+id/dateTakenInput"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="dd/MM/yyyy"
-                android:clickable="true"
-                android:focusable="false"
-                android:inputType="date"
+                android:layout_height="36dp"
+                android:hint="DD/MM/YYYY"
+                android:inputType="number"
+                android:maxLength="10"
                 android:textColor="@color/textPrimary"
-                android:backgroundTint="@color/textPrimary" />
+                android:background="@drawable/edittext_background"
+                android:paddingStart="8dp"/>
 
             <!-- Date Returned -->
             <TextView
+                android:textAlignment="center"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Date Returned:"
+                android:layout_height="30dp"
+                android:text="Date Returned"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/textPrimary" />
@@ -112,13 +149,13 @@
             <EditText
                 android:id="@+id/dateReturnedInput"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:hint="dd/MM/yyyy"
-                android:clickable="true"
-                android:focusable="false"
-                android:inputType="date"
+                android:layout_height="36dp"
+                android:hint="DD/MM/YYYY"
+                android:inputType="number"
+                android:maxLength="10"
                 android:textColor="@color/textPrimary"
-                android:backgroundTint="@color/textPrimary" />
+                android:background="@drawable/edittext_background"
+                android:paddingStart="8dp"/>
 
             <!-- Calculate Button -->
             <LinearLayout
@@ -143,6 +180,7 @@
             <!-- Copyright Section -->
         </LinearLayout>
     </ScrollView>
+    </LinearLayout>
     <TextView
         android:id="@+id/copyrightText"
         android:layout_width="match_parent"
