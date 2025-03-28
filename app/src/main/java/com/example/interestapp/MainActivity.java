@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "All fields have been reset!", Toast.LENGTH_SHORT).show();
     }
     private void openWebLink() {
-        String url = "https://drive.google.com/uc?export=download&id=1nRexTqODkN9v2MiIZZb9PsC4gi6D54Ub"; // Replace with your desired URL
+        String url = "https://drive.google.com/uc?export=download&id=1xNPcxyajGTJr1uDskill3KPe2sv00xWW"; // Replace with your desired URL
         Intent intent = new Intent(Intent.ACTION_VIEW, parse(url));
         startActivity(intent);
     }
