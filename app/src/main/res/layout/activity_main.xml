@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             tools:ignore="MissingConstraints"
-            android:background="#EA3700B3">
+            android:background="#EA3700B3"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/titleText"
@@ -27,17 +28,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingBottom="6dp"
-                android:text="Vaddi App"
+                android:text="Vaddi(₹) App"
+                android:paddingTop="2dp"
                 android:textColor="@color/onPrimary"
-                android:textSize="24dp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/refreshButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/baseline_autorenew_24" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:paddingBottom="6dp"
+                android:text=" "
+                android:paddingTop="2dp"
+                android:textColor="@color/onPrimary"
+                 android:layout_width="2dp"/>
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:id="@+id/openLinkButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="end|center_vertical"
                 android:src="@drawable/baseline_arrow_circle_down_24" />
-
 
         </LinearLayout>
 
@@ -89,7 +105,7 @@
                 android:id="@+id/amountInput"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:hint="e.g., 1,00,000"
+                android:hint="₹ 1,00,000"
                 android:inputType="numberDecimal"
                 android:textColor="@color/textPrimary"
                 android:background="@drawable/edittext_background"
@@ -162,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="14dp">
 
                 <Button
                     android:id="@+id/calculateButton"
@@ -172,7 +188,7 @@
                     android:background="@drawable/button_background"
                     android:text="Calculate Interest"
                     android:textColor="@color/backgroundColor"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -185,7 +201,7 @@
         android:id="@+id/copyrightText"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/backgroundColor"
+        android:background="@color/textPrimary"
         android:gravity="center"
         android:text="© 2024 Charan. All rights reserved."
         android:textSize="14sp"

@@ -1,10 +1,15 @@
 package com.example.interestapp;
 
+import static android.net.Uri.*;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -20,7 +25,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private EditText amountInput, rateInput, dateTakenInput, dateReturnedInput;
-
+    private ImageView refreshButton,openLinkButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +36,10 @@ public class MainActivity extends AppCompatActivity {
         dateTakenInput = findViewById(R.id.dateTakenInput);
         dateReturnedInput = findViewById(R.id.dateReturnedInput);
         Button calculateButton = findViewById(R.id.calculateButton);
-
+        refreshButton = findViewById(R.id.refreshButton);
+        openLinkButton = findViewById(R.id.openLinkButton);
+        refreshButton.setOnClickListener(v -> resetFields());
+        openLinkButton.setOnClickListener(v -> openWebLink());
         // Add currency formatting to amount field
         addCurrencyFormatting(amountInput);
 
@@ -112,7 +120,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void resetFields() {
+        amountInput.setText("");
+        rateInput.setText("");
+        dateTakenInput.setText("");
+        dateReturnedInput.setText("");
 
+        amountInput.requestFocus(); // Set focus back to first input field
+
+        Toast.makeText(this, "All fields have been reset!", Toast.LENGTH_SHORT).show();
+    }
+    private void openWebLink() {
+        String url = "https://drive.google.com/uc?export=download&id=1nRexTqODkN9v2MiIZZb9PsC4gi6D54Ub"; // Replace with your desired URL
+        Intent intent = new Intent(Intent.ACTION_VIEW, parse(url));
+        startActivity(intent);
+    }
     private void calculateInterest() {
         String amountStr = amountInput.getText().toString().replace(",", "").trim();
         String rateStr = rateInput.getText().toString().trim();
