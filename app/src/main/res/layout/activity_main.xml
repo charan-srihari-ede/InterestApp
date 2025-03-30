@@ -31,8 +31,9 @@
                 android:text="Vaddi(₹) App"
                 android:paddingTop="2dp"
                 android:textColor="@color/onPrimary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
             <ImageView
                 android:id="@+id/refreshButton"
                 android:layout_width="30dp"
